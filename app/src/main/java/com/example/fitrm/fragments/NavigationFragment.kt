@@ -27,6 +27,9 @@ class NavigationFragment : Fragment(R.layout.fragment_navigation) {
         binding.sportpit.setOnClickListener {
             (activity as MainActivity).navigateToFragment(CategoriesFragment.newInstance())
         }
+        binding.training.setOnClickListener {
+            (activity as MainActivity).navigateToFragment(TrainingFragment.newInstance())
+        }
         binding.video.setOnClickListener {
             val intent = Intent(activity, VideoActivity::class.java)
             startActivity(intent)

@@ -21,4 +21,6 @@
     <string name="glutamine">Глютамин</string>
     <string name="Play">Тренировка спины</string>
     <string name="Play2">Мотивация</string>
+    <string name="error">Ошибка загрузки</string>
+    <string name="training">Лучшая программа тренировок</string>
 </resources>

@@ -14,6 +14,10 @@
         <entry key="..\:/FitRM/app/src/main/res/layout/activity_reg.xml" value="0.33" />
         <entry key="..\:/FitRM/app/src/main/res/layout/activity_video.xml" value="0.29528985507246375" />
         <entry key="..\:/FitRM/app/src/main/res/layout/fragment_details.xml" value="0.29528985507246375" />
+        <entry key="..\:/FitRM/app/src/main/res/layout/fragment_login.xml" value="0.359375" />
+        <entry key="..\:/FitRM/app/src/main/res/layout/fragment_navigation.xml" value="0.359375" />
+        <entry key="..\:/FitRM/app/src/main/res/layout/fragment_products.xml" value="0.359375" />
+        <entry key="..\:/FitRM/app/src/main/res/layout/fragment_training.xml" value="0.359375" />
         <entry key="..\:/FitRM/app/src/main/res/layout/item_product.xml" value="0.5" />
       </map>
     </option>
