@@ -9,7 +9,7 @@ import com.google.android.youtube.player.YouTubePlayer
 
 class VideoActivity : YouTubeBaseActivity() {
     private lateinit var binding: ActivityVideoBinding
-    val video_id1 = "iybfiQSVgYk"
+    val video_id1 = "Xd1tpQyNkXw"
     val video_id2 = "B0eAmMa25fU"
     private val youtubeApikey = "AIzaSyAPjSCR01bk47vMOfGyy7ginsa-6afc_g0"
     private lateinit var youtubePlayerInit: YouTubePlayer.OnInitializedListener

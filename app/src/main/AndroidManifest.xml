@@ -11,40 +11,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FitRM">
         <activity
-            android:name=".activity.DetailsActivity"
-            android:exported="false" />
-        <activity
-            android:name=".activity.ProteinActivity"
-            android:exported="false" />
-        <activity
-            android:name=".activity.CreatineActivity"
-            android:exported="false" />
-        <activity
-            android:name=".activity.GlutamineActivity"
-            android:exported="false" />
+            android:name=".activity.MainActivity"
+            android:exported="true" >
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+      </activity>
         <activity
             android:name=".activity.VideoActivity"
-            android:exported="false" />
-        <activity
-            android:name=".activity.CategoriesActivity"
-            android:exported="false" />
-        <activity
-            android:name=".activity.NavigationActivity"
-            android:exported="false" />
-        <activity
-            android:name=".activity.RegActivity"
-            android:exported="true" />
-        <activity
-            android:name=".activity.LoginActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".activity.MainActivity"
             android:exported="true" />
     </application>
 
