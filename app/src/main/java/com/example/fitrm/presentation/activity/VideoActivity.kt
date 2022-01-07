@@ -1,4 +1,4 @@
-package com.example.fitrm.activity
+package com.example.fitrm.presentation.activity
 
 import android.os.Bundle
 import android.widget.Toast

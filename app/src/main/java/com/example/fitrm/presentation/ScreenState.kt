@@ -1,6 +1,6 @@
-package com.example.fitrm
+package com.example.fitrm.presentation
 
-import com.example.fitrm.model.Product
+import com.example.fitrm.data.model.Product
 
 sealed class ScreenState {
     data class DataLoaded(val products: List<Product>) : ScreenState()

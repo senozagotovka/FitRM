@@ -1,12 +1,11 @@
-package com.example.fitrm.fragments
+package com.example.fitrm.presentation.fragments
 
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import com.example.fitrm.R
 import com.example.fitrm.databinding.FragmentTrainingBinding
-import com.example.fitrm.model.Training
-import com.example.fitrm.network.NetworkService
+import com.example.fitrm.domain.network.NetworkService
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope

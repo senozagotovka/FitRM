@@ -1,7 +1,7 @@
-package com.example.fitrm.network
+package com.example.fitrm.domain.network
 
-import com.example.fitrm.model.Product
-import com.example.fitrm.model.Training
+import com.example.fitrm.data.model.Product
+import com.example.fitrm.data.model.Training
 import retrofit2.http.GET
 
 interface RestApi {

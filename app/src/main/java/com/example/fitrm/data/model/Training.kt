@@ -1,4 +1,4 @@
-package com.example.fitrm.model
+package com.example.fitrm.data.model
 
 import kotlinx.serialization.Serializable
 

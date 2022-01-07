@@ -1,4 +1,4 @@
-package com.example.fitrm.fragments
+package com.example.fitrm.presentation.fragments
 
 import android.os.Bundle
 import android.view.View
@@ -7,27 +7,20 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.fitrm.R
-import com.example.fitrm.ScreenState
-import com.example.fitrm.activity.MainActivity
-import com.example.fitrm.adapter.ProductAdapter
+import com.example.fitrm.presentation.ScreenState
+import com.example.fitrm.presentation.adapter.ProductAdapter
 import com.example.fitrm.databinding.FragmentProductsBinding
-import com.example.fitrm.model.Product
-import com.example.fitrm.network.NetworkService
-import com.example.fitrm.onClickFlow
-import com.example.fitrm.onRefreshFlow
+import com.example.fitrm.data.model.Product
+import com.example.fitrm.presentation.activity.MainActivity
+import com.example.fitrm.presentation.viewmodel.ProteinViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.distinctUntilChanged
-import kotlinx.coroutines.flow.flatMapLatest
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.merge
 import kotlinx.coroutines.flow.onEach
 import kotlinx.serialization.ExperimentalSerializationApi
 
 class ProteinFragment : Fragment(R.layout.fragment_products) {
     private lateinit var binding: FragmentProductsBinding
+    private val viewModel by lazy { ProteinViewModel(requireContext(), lifecycleScope) }
 
     companion object {
         fun newInstance() = ProteinFragment()
@@ -43,39 +36,29 @@ class ProteinFragment : Fragment(R.layout.fragment_products) {
             parentFragmentManager.popBackStack()
         }
 
-        merge(
-            flowOf(Unit),
-            binding.swipeRefreshLayout.onRefreshFlow(),
-            binding.buttonRefresh.onClickFlow()
-        ).flatMapLatest { loadProtein() }
-            .distinctUntilChanged()
-            .onEach {
-                when (it) {
-                    is ScreenState.DataLoaded -> {
-                        setLoading(false)
-                        setError(null)
-                        setData(it.products)
-                    }
-                    is ScreenState.Error -> {
-                        setLoading(false)
-                        setError(it.error)
-                        setData(null)
-                    }
-                    is ScreenState.Loading -> {
-                        setLoading(true)
-                        setError(null)
-                    }
+        if (savedInstanceState == null) {
+            viewModel.loadData()
+        }
+        binding.swipeRefreshLayout.setOnRefreshListener { viewModel.loadData() }
+        binding.buttonRefresh.setOnClickListener { viewModel.loadData() }
+        viewModel.screenState.onEach {
+            when (it) {
+                is ScreenState.DataLoaded -> {
+                    setLoading(false)
+                    setError(null)
+                    setData(it.products)
                 }
-            }.launchIn(lifecycleScope)
-    }
-
-    @ExperimentalSerializationApi
-    private fun loadProtein() = flow {
-        emit(ScreenState.Loading)
-        val protein = NetworkService.loadProtein()
-        emit(ScreenState.DataLoaded(protein))
-    }.catch {
-        emit(ScreenState.Error(getString(R.string.error)))
+                is ScreenState.Error -> {
+                    setLoading(false)
+                    setError(it.error)
+                    setData(null)
+                }
+                is ScreenState.Loading -> {
+                    setLoading(true)
+                    setError(null)
+                }
+            }
+        }.launchIn(lifecycleScope)
     }
 
     private fun setLoading(isLoading: Boolean) = with(binding) {

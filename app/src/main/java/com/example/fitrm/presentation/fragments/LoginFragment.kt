@@ -1,11 +1,11 @@
-package com.example.fitrm.fragments
+package com.example.fitrm.presentation.fragments
 
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import com.example.fitrm.R
-import com.example.fitrm.activity.MainActivity
 import com.example.fitrm.databinding.FragmentLoginBinding
+import com.example.fitrm.presentation.activity.MainActivity
 
 class LoginFragment : Fragment(R.layout.fragment_login) {
     private lateinit var binding: FragmentLoginBinding

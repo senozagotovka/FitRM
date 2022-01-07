@@ -1,13 +1,13 @@
-package com.example.fitrm.fragments
+package com.example.fitrm.presentation.fragments
 
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import com.example.fitrm.R
-import com.example.fitrm.activity.MainActivity
-import com.example.fitrm.activity.VideoActivity
 import com.example.fitrm.databinding.FragmentNavigationBinding
 import android.content.Intent
+import com.example.fitrm.presentation.activity.MainActivity
+import com.example.fitrm.presentation.activity.VideoActivity
 
 class NavigationFragment : Fragment(R.layout.fragment_navigation) {
     private lateinit var binding: FragmentNavigationBinding

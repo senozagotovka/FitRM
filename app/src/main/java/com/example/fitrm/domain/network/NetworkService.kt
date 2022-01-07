@@ -1,4 +1,4 @@
-package com.example.fitrm.network
+package com.example.fitrm.domain.network
 
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import kotlinx.serialization.ExperimentalSerializationApi

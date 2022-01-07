@@ -1,4 +1,4 @@
-package com.example.fitrm.fragments
+package com.example.fitrm.presentation.fragments
 
 import android.os.Bundle
 import android.view.View

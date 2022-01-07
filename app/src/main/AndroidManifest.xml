@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FitRM">
         <activity
-            android:name=".activity.MainActivity"
+            android:name=".presentation.activity.MainActivity"
             android:exported="true" >
         <intent-filter>
             <action android:name="android.intent.action.MAIN" />
@@ -21,7 +21,7 @@
         </intent-filter>
       </activity>
         <activity
-            android:name=".activity.VideoActivity"
+            android:name=".presentation.activity.VideoActivity"
             android:exported="true" />
     </application>
 
