@@ -2,6 +2,7 @@ package com.example.fitrm.presentation.viewmodel
 
 import android.content.Context
 import com.example.fitrm.R
+import com.example.fitrm.data.database.DatabaseProvider
 import com.example.fitrm.domain.network.NetworkService
 import com.example.fitrm.presentation.ScreenState
 import kotlinx.coroutines.CoroutineScope
@@ -10,6 +11,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import kotlinx.serialization.ExperimentalSerializationApi
+import java.io.IOException
 
 class CreatineViewModel(
     private val context: Context,
@@ -17,6 +19,7 @@ class CreatineViewModel(
 ) {
     private val _screenState = MutableStateFlow<ScreenState>(ScreenState.Loading)
     val screenState: StateFlow<ScreenState> = _screenState
+    private val creatineDao = DatabaseProvider.provideDatabase(context).productsDao()
 
     private var job: Job? = null
 
@@ -25,11 +28,17 @@ class CreatineViewModel(
         job?.cancel()
         job = coroutineScope.launch {
             try {
-                _screenState.emit(ScreenState.Loading)
-                val creatine = NetworkService.loadCreatine()
-                _screenState.emit(ScreenState.DataLoaded(creatine))
-            } catch (ex: Throwable) {
-                _screenState.emit(ScreenState.Error(context.resources.getString(R.string.error)))
+                _screenState.value = ScreenState.Loading
+                val creatine = try {
+                    NetworkService(context).loadCreatine().also {
+                        creatineDao.insertAll(it)
+                    }
+                } catch (ex: IOException){
+                    creatineDao.getAll()
+                }
+                _screenState.value = ScreenState.DataLoaded(creatine)
+            } catch(ex: Throwable) {
+                _screenState.value = ScreenState.Error(context.getString(R.string.error))
             }
         }
     }

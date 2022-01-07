@@ -5,7 +5,7 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import com.example.fitrm.R
 import com.example.fitrm.databinding.FragmentTrainingBinding
-import com.example.fitrm.domain.network.NetworkService
+import com.example.fitrm.domain.network.NetworkServiceTraining
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
@@ -45,7 +45,7 @@ class TrainingFragment : Fragment(R.layout.fragment_training) {
     @ExperimentalSerializationApi
     private fun loadTraining() {
         scope.launch {
-            val training = NetworkService.loadTraining()
+            val training = NetworkServiceTraining.loadTraining()
             val builder = StringBuilder()
             for (i in training.indices) {
                 builder.append(" ")

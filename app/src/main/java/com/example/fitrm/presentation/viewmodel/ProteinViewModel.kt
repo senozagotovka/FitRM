@@ -2,6 +2,7 @@ package com.example.fitrm.presentation.viewmodel
 
 import android.content.Context
 import com.example.fitrm.R
+import com.example.fitrm.data.database.DatabaseProvider
 import com.example.fitrm.domain.network.NetworkService
 import com.example.fitrm.presentation.ScreenState
 import kotlinx.coroutines.CoroutineScope
@@ -10,6 +11,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import kotlinx.serialization.ExperimentalSerializationApi
+import java.io.IOException
 
 class ProteinViewModel(
     private val context: Context,
@@ -17,6 +19,7 @@ class ProteinViewModel(
 ) {
     private val _screenState = MutableStateFlow<ScreenState>(ScreenState.Loading)
     val screenState: StateFlow<ScreenState> = _screenState
+    private val proteinDao = DatabaseProvider.provideDatabase(context).productsDao()
 
     private var job: Job? = null
 
@@ -25,11 +28,17 @@ class ProteinViewModel(
         job?.cancel()
         job = coroutineScope.launch {
             try {
-                _screenState.emit(ScreenState.Loading)
-                val protein = NetworkService.loadProtein()
-                _screenState.emit(ScreenState.DataLoaded(protein))
-            } catch (ex: Throwable) {
-                _screenState.emit(ScreenState.Error(context.resources.getString(R.string.error)))
+                _screenState.value = ScreenState.Loading
+                val protein = try {
+                    NetworkService(context).loadProtein().also {
+                        proteinDao.insertAll(it)
+                    }
+                } catch (ex: IOException){
+                    proteinDao.getAll()
+                }
+                _screenState.value = ScreenState.DataLoaded(protein)
+            } catch(ex: Throwable) {
+                _screenState.value = ScreenState.Error(context.getString(R.string.error))
             }
         }
     }
